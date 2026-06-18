@@ -1,0 +1,17 @@
+# Deterministic line endings across macOS / Linux / Windows.
+# Default: normalize everything to LF in the repo and working tree.
+* text=auto eol=lf
+
+# Windows-native launchers stay CRLF in the working tree.
+*.ps1 text eol=crlf
+*.bat text eol=crlf
+*.cmd text eol=crlf
+
+# POSIX shell + Python must be LF (CRLF breaks bash and shebangs on macOS/Linux).
+*.sh  text eol=lf
+*.py  text eol=lf
+
+# Treat data + checkpoints as-is.
+*.jsonl text eol=lf
+*.png binary
+*.pt  binary

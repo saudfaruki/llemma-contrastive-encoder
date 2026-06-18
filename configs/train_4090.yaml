@@ -1,0 +1,19 @@
+# Real training run on a CUDA / 4090 (24 GB) box. Used by `make train-cuda`.
+# batch_size and epochs are the main tuning knobs.
+backbone_id: EleutherAI/llemma_7b
+device: cuda
+quantize: 4bit
+max_length: 1024
+batch_size: 8
+lr: 1.0e-4
+weight_decay: 0.01
+epochs: 3
+temperature: 0.1
+use_queue: true
+queue_size: 4096
+grad_checkpointing: true
+warmup_ratio: 0.1
+seed: 0
+log_every: 10
+ckpt_every: 200
+out_dir: runs

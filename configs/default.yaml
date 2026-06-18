@@ -1,0 +1,36 @@
+# Phase 2 contrastive-encoder default config.
+# Locked decisions: Llemma-7B decoder-only, SupCon (temp 0.1), tier-1 augments
+# (whitespace + comment-strip only), memory queue default OFF, bf16 on MPS.
+
+# ---- Model / encoder ----
+backbone_id: EleutherAI/llemma_7b
+backbone_type: decoder          # decoder | encoder
+pooling: mean                   # mean | cls  (mean used for decoder)
+hidden_dim: 4096                # Llemma-7B (Llama2-7B arch); verified against model.config at load
+embed_dim: 256                  # kept inference embedding
+proj_dim: 128                   # SupCon projection-head output (train only)
+lora_targets: [q_proj, k_proj, v_proj, o_proj]
+lora_r: 16
+lora_alpha: 32
+lora_dropout: 0.05
+quantize: none                  # none | 4bit  (4bit is CUDA-only; hard-guarded, stays none here)
+
+# ---- Data ----
+v3_path: data/elementary_nt_proofs_v3.jsonl
+pairs_path: data/same_theorem_pairs.jsonl
+max_length: 1024                # max proof ~545 tokens -> zero truncation
+
+# ---- Training ----
+batch_size: 8                   # base items per batch; 2 views each => 16 rows
+lr: 1.0e-4
+weight_decay: 0.01
+epochs: 1
+temperature: 0.1
+use_queue: false                # FIFO memory queue; OFF on this 64GB Mac, lever for the 4090
+queue_size: 4096
+grad_checkpointing: true
+warmup_ratio: 0.1               # ~10% warmup, cosine decay after
+seed: 0
+log_every: 10
+ckpt_every: 200
+out_dir: runs                   # train.py appends a timestamp subdir

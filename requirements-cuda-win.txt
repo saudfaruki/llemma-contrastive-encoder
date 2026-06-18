@@ -1,0 +1,21 @@
+# Phase 2 contrastive-encoder training — Windows / NVIDIA CUDA target (RTX 4090).
+# Companion to requirements.txt (macOS/MPS) and requirements-cuda.txt (Linux/CUDA).
+#
+# torch is installed SEPARATELY (before this file) from the CUDA 13.0 wheel index,
+# because on Windows the default PyPI torch wheel is not the CUDA build. run_win.ps1
+# does it for you:
+#     pip install torch==2.12.0 --index-url https://download.pytorch.org/whl/cu130
+# (the cu130 wheel runs on CUDA 12.x and 13.x drivers via forward compatibility).
+#
+# Verified: Windows 11, RTX 4090 (24 GB), driver CUDA 13.2, Python 3.12.
+# bitsandbytes 0.48.0 nf4 4-bit kernels work on this CUDA 13 / Windows stack.
+transformers==5.9.0
+peft==0.19.1
+accelerate==1.13.0
+bitsandbytes==0.48.0
+huggingface_hub==1.17.0
+numpy==2.4.6
+PyYAML==6.0.3
+tqdm==4.67.3
+matplotlib==3.10.9
+pytest==9.0.3

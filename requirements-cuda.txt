@@ -1,0 +1,17 @@
+# Phase 2 contrastive-encoder training — CUDA / 4090 (Linux) target.
+# Companion to requirements.txt (which is the Apple-Silicon/MPS set).
+# On Linux, torch resolves to the CUDA wheel automatically.
+# NOTE: the bitsandbytes <-> torch <-> CUDA-toolkit pairing is the one thing
+# that cannot be verified from the Mac. If `make smoke-cuda` fails at model
+# load, pin bitsandbytes to the version matching the box's CUDA (see its README).
+torch==2.12.0
+transformers==5.9.0
+peft==0.19.1
+accelerate==1.13.0
+bitsandbytes==0.48.0
+huggingface_hub==1.17.0
+numpy==2.4.6
+PyYAML==6.0.3
+tqdm==4.67.3
+matplotlib==3.10.9
+pytest==9.0.3
